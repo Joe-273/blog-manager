@@ -32,8 +32,8 @@ import Layout from '@/layout'
  */
 export const constantRoutes = [
   {
-    path: '/login',
-    component: () => import('@/views/login/index'),
+    path: '/Login',
+    component: () => import('@/views/Login/index'),
     hidden: true
   },
 
@@ -42,120 +42,137 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
+  // 控制台
   {
     path: '/',
     component: Layout,
-    redirect: '/dashboard',
-    children: [{
-      path: 'dashboard',
-      name: 'Dashboard',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
-    }]
-  },
-
-  {
-    path: '/example',
-    component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: '/Dashboard',
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
-      },
-      {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: 'Dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/Dashboard/index'),
+        meta: { title: '控制台', icon: 'dashboard', auth: true }
       }
     ]
   },
-
+  // 首页管理
   {
-    path: '/form',
+    path: '/HomeManager',
+    component: Layout,
+    redirect: '/HomeManager',
+    children: [
+      {
+        path: 'HomeManager',
+        name: 'HomeManager',
+        component: () => import('@/views/HomeManager/index'),
+        meta: { title: '首页管理', icon: 'el-icon-s-home', auth: true }
+      }
+    ]
+  },
+  // 博客
+  {
+    path: '/Blog',
+    component: Layout,
+    redirect: '/Blog/BlogList',
+    name: 'Blog',
+    meta: {
+      title: '博客',
+      icon: 'el-icon-reading'
+    },
+    children: [
+      {
+        path: 'BlogList',
+        component: () => import('@/views/Blog/BlogList/index'), // Parent router-view
+        name: 'BlogList',
+        meta: { title: '博客列表', icon: 'el-icon-s-grid', auth: true }
+      },
+      {
+        path: 'BlogType',
+        component: () => import('@/views/Blog/BlogType/index'), // Parent router-view
+        name: 'BlogType',
+        meta: { title: '博客分类', icon: 'el-icon-menu', auth: true }
+      },
+      {
+        path: 'BlogIncrease',
+        component: () => import('@/views/Blog/BlogIncrease/index'), // Parent router-view
+        name: 'BlogIncrease',
+        meta: { title: '添加博客', icon: 'el-icon-circle-plus-outline', auth: true }
+      }
+    ]
+  },
+  // 评论管理
+  {
+    path: '/CommentManager',
     component: Layout,
     children: [
       {
         path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
+        name: 'CommentManager',
+        component: () => import('@/views/CommentManager/index'),
+        meta: { title: '评论管理', icon: 'el-icon-chat-line-square', auth: true }
       }
     ]
   },
-
+  // 项目展示
   {
-    path: '/nested',
+    path: '/Project',
     component: Layout,
-    redirect: '/nested/menu1',
-    name: 'Nested',
-    meta: {
-      title: 'Nested',
-      icon: 'nested'
-    },
+    redirect: '/Project/ProjectList',
+    name: 'Project',
+    meta: { title: '项目管理', icon: 'el-icon-data-line', auth: true },
     children: [
       {
-        path: 'menu1',
-        component: () => import('@/views/nested/menu1/index'), // Parent router-view
-        name: 'Menu1',
-        meta: { title: 'Menu1' },
-        children: [
-          {
-            path: 'menu1-1',
-            component: () => import('@/views/nested/menu1/menu1-1'),
-            name: 'Menu1-1',
-            meta: { title: 'Menu1-1' }
-          },
-          {
-            path: 'menu1-2',
-            component: () => import('@/views/nested/menu1/menu1-2'),
-            name: 'Menu1-2',
-            meta: { title: 'Menu1-2' },
-            children: [
-              {
-                path: 'menu1-2-1',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-1'),
-                name: 'Menu1-2-1',
-                meta: { title: 'Menu1-2-1' }
-              },
-              {
-                path: 'menu1-2-2',
-                component: () => import('@/views/nested/menu1/menu1-2/menu1-2-2'),
-                name: 'Menu1-2-2',
-                meta: { title: 'Menu1-2-2' }
-              }
-            ]
-          },
-          {
-            path: 'menu1-3',
-            component: () => import('@/views/nested/menu1/menu1-3'),
-            name: 'Menu1-3',
-            meta: { title: 'Menu1-3' }
-          }
-        ]
+        path: 'ProjectList',
+        name: 'ProjectList',
+        component: () => import('@/views/Project/ProjectList'),
+        meta: { title: '项目列表', icon: 'table', auth: true }
       },
       {
-        path: 'menu2',
-        component: () => import('@/views/nested/menu2/index'),
-        name: 'Menu2',
-        meta: { title: 'menu2' }
+        path: 'ProjectIncrease',
+        name: 'ProjectIncrease',
+        component: () => import('@/views/Project/ProjectIncrease'),
+        meta: { title: '添加项目', icon: 'el-icon-circle-plus-outline', auth: true }
       }
     ]
   },
 
+  // 留言板
   {
-    path: 'external-link',
+    path: '/LeaveWords',
     component: Layout,
     children: [
       {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
+        path: 'index',
+        name: 'LeaveWords',
+        component: () => import('@/views/LeaveWords/index'),
+        meta: { title: '留言板', icon: 'el-icon-chat-dot-round', auth: true }
+      }
+    ]
+  },
+  // 关于我
+  {
+    path: '/About',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'About',
+        component: () => import('@/views/About/index'),
+        meta: { title: '关于我', icon: 'el-icon-info', auth: true }
+      }
+    ]
+  },
+  // 设置
+  {
+    path: '/Setting',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'Setting',
+        component: () => import('@/views/Setting/index'),
+        meta: { title: '设置', icon: 'el-icon-s-tools', auth: true }
       }
     ]
   },
@@ -164,11 +181,12 @@ export const constantRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
-const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
-  routes: constantRoutes
-})
+const createRouter = () =>
+  new Router({
+    // mode: 'history', // require service support
+    scrollBehavior: () => ({ y: 0 }),
+    routes: constantRoutes
+  })
 
 const router = createRouter()
 
