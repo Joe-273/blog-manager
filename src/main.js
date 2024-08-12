@@ -15,6 +15,18 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+// markdown编辑器
+import VueMarkdownEditor from '@kangc/v-md-editor'
+import '@kangc/v-md-editor/lib/style/base-editor.css'
+import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
+import '@kangc/v-md-editor/lib/theme/style/vuepress.css'
+import Prism from 'prismjs' // Prism
+import 'prismjs/components/prism-json' // highlight code
+VueMarkdownEditor.use(vuepressTheme, {
+  Prism
+})
+Vue.use(VueMarkdownEditor)
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

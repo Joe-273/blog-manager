@@ -4,6 +4,7 @@
     <!-- 数据表格 -->
     <!-- 数据表格 -->
     <el-table
+      v-loading="loading"
       :data="data"
       border
       style="width: 100%"
@@ -21,14 +22,12 @@
       <!--  -->
       <el-table-column
         label="文章名称"
-        width="200"
+        width="160"
         align="center"
       >
         <template slot-scope="scope">
           <el-popover
             placement="top-start"
-            title="预览"
-            width="200"
             trigger="hover"
           >
             <el-image
@@ -44,7 +43,7 @@
       <!--  -->
       <el-table-column
         label="文章描述"
-        width="340"
+        width="280"
         align="center"
       >
         <template slot-scope="scope">
@@ -73,13 +72,13 @@
         align="center"
       >
         <template slot-scope="scope">
-          {{ scope.row.category.name }}
+          {{ scope.row.category.name || '未分类' }}
         </template>
       </el-table-column>
       <el-table-column
         label="创建日期"
         align="center"
-        :width="240"
+        :width="100"
       >
         <template slot-scope="scope">
           {{ formatTime(scope.row.createDate,true) }}
@@ -92,11 +91,11 @@
         align="center"
       >
         <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" content="编辑内容" :hide-after="1500" placement="top">
-            <el-button type="primary" icon="el-icon-edit" circle @click="handleEditButtonClick(data[scope.$index])" />
+          <el-tooltip class="item" effect="dark" content="编辑内容" :hide-after="1500" placement="top" :open-delay="750">
+            <el-button type="primary" plain icon="el-icon-edit" circle @click="handleEditButtonClick(data[scope.$index])" />
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除此项" :hide-after="1500" placement="top">
-            <el-button type="danger" icon="el-icon-delete" circle @click="handleDeleteButtonClick(data[scope.$index])" />
+          <el-tooltip class="item" effect="dark" content="删除此项" :hide-after="1500" placement="top" :open-delay="750">
+            <el-button type="danger" plain icon="el-icon-delete" circle @click="handleDeleteButtonClick(data[scope.$index])" />
           </el-tooltip>
         </template>
       </el-table-column>
@@ -128,6 +127,7 @@ import formatTime from '@/utils/formatDate.js'
 export default {
   data() {
     return {
+      loading: false,
       data: [], // 远程获取的数据
       srcList: [], // 预览图链接数组
 
@@ -144,6 +144,7 @@ export default {
     await this.fetchData()
   },
   methods: {
+    /** 分页函数 */
     handleSizeChange(eachPage) {
       this.eachPage = parseInt(eachPage)
       this.currentPage = 1
@@ -182,9 +183,13 @@ export default {
         })
       })
     },
-    /* 点击编辑按钮 */
-    handleEditButtonClick() {},
 
+    /* 点击编辑按钮 */
+    handleEditButtonClick(blogInfo) {
+      this.$router.push(`/Blog/EditBlog/${blogInfo.id}`)
+    },
+
+    /** 超链接 */
     handleGoToBlog(blogInfo) {
       window.open(`${FRONT_ENT_URL}/blog/detail/${blogInfo.id}`)
     },
@@ -193,8 +198,10 @@ export default {
     formatTime,
 
     async fetchData() {
+      this.loading = true
       const resp = await getBlogByPager(this.currentPage, this.eachPage)
       this.data = resp.data.rows
+      this.loading = false
 
       // 添加完善地址链接的地址到srcList
       this.data.forEach(i => {

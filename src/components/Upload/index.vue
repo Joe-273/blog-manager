@@ -1,8 +1,5 @@
 <template>
   <div class="upload-container">
-    <!-- 标题 -->
-    <div class="block">{{ uploadTitle }}</div>
-    <!-- 主体 -->
     <el-upload
       class="avatar-uploader"
       action="/api/upload"
@@ -10,21 +7,15 @@
       :on-success="handleAvatarSuccess"
       :headers="headers"
     >
-      <img v-if="value" :src="imgUrl" class="avatar">
+      <img v-if="value" :src="value" class="avatar">
       <i v-else class="el-icon-plus avatar-uploader-icon" />
     </el-upload>
   </div>
 </template>
 
 <script>
-import { SERVER_URL } from '@/config'
 export default {
   props: {
-    uploadTitle: {
-      type: String,
-      required: false,
-      default: ''
-    },
     value: {
       type: String,
       required: false,
@@ -32,9 +23,6 @@ export default {
     }
   },
   computed: {
-    imgUrl() {
-      return SERVER_URL + this.value
-    },
     headers() {
       return { Authorization: 'Bearer ' + localStorage.getItem('adminToken') }
     }
@@ -53,15 +41,11 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style  scoped>
 .upload-container{
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-.block{
-  margin: 15px 0;
-  font-weight:700 ;
 }
 .avatar-uploader .el-upload {
     cursor: pointer;
