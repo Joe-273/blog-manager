@@ -98,6 +98,13 @@ export const constantRoutes = [
         component: () => import('@/views/Blog/BlogIncrease/index'), // Parent router-view
         name: 'BlogIncrease',
         meta: { title: '添加博客', icon: 'el-icon-circle-plus-outline', auth: true }
+      },
+      {
+        path: 'EditBlog/:blogId',
+        component: () => import('@/views/Blog/BlogIncrease/index'), // Parent router-view
+        name: 'EditBlog',
+        hidden: true,
+        meta: { title: '编辑博客', auth: true, editBlogMode: true }
       }
     ]
   },

@@ -19,3 +19,29 @@ export function deleteBlogByPager(blogId) {
     method: 'delete'
   })
 }
+
+// 发布文章
+export function addBlog(data) {
+  return request({
+    url: '/api/blog',
+    method: 'post',
+    data
+  })
+}
+
+// 编辑文章
+export function editBlog(blogInfo) {
+  return request({
+    url: `/api/blog/${blogInfo.id}`,
+    method: 'put',
+    data: blogInfo.data
+  })
+}
+
+// 根据ID查找文章
+export function getOneBlog(id) {
+  return request({
+    url: `/api/blog/${id}`,
+    method: 'get'
+  })
+}

@@ -4,6 +4,7 @@
     <!-- 数据表格 -->
     <!-- 数据表格 -->
     <el-table
+      v-loading="loading"
       :data="data"
       border
       style="width: 100%"
@@ -65,11 +66,11 @@
         align="center"
       >
         <template slot-scope="scope">
-          <el-tooltip class="item" effect="dark" content="编辑内容" :hide-after="1500" placement="top">
-            <el-button type="primary" icon="el-icon-edit" circle @click="handleEditButtonClick(data[scope.$index])" />
+          <el-tooltip class="item" effect="dark" content="编辑内容" :hide-after="1500" placement="top" :open-delay="750">
+            <el-button type="primary" plain icon="el-icon-edit" circle @click="handleEditButtonClick(data[scope.$index])" />
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="删除此项" :hide-after="1500" placement="top">
-            <el-button type="danger" icon="el-icon-delete" circle @click="handleDeleteButtonClick(data[scope.$index])" />
+          <el-tooltip class="item" effect="dark" content="删除此项" :hide-after="1500" placement="top" :open-delay="750">
+            <el-button type="danger" plain icon="el-icon-delete" circle @click="handleDeleteButtonClick(data[scope.$index])" />
           </el-tooltip>
 
         </template>
@@ -110,10 +111,12 @@
         <el-row class="upload">
           <el-col :span="12">
             <!-- 占位图 -->
+            <p>占位图</p>
             <Upload v-model="form.midImg" :value="form.midImg" upload-title="占位图" />
           </el-col>
           <el-col :span="12">
             <!-- 原图 -->
+            <p>原图</p>
             <Upload v-model="form.bigImg" :value="form.bigImg" upload-title="原图" />
           </el-col>
         </el-row>
@@ -139,6 +142,7 @@ export default {
   },
   data() {
     return {
+      loading: false,
       data: [],
       // Dialog数据
       dialogFormVisible: false,
@@ -246,8 +250,10 @@ export default {
 
     // 获取数据
     fetchData() {
+      this.loading = true
       getBanner().then(resp => {
         this.data = resp.data
+        this.loading = false
       })
     }
 
@@ -262,5 +268,8 @@ export default {
   text-align: center;
   border: 1px solid #EBEEF5 ;
   border-top: none;
+}
+.upload{
+  text-align: center;
 }
 </style>
