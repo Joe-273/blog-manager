@@ -39,9 +39,6 @@ export default {
       return { Authorization: 'Bearer ' + localStorage.getItem('adminToken') }
     }
   },
-  created() {
-    console.log(this.uploadTitle, this.value)
-  },
   methods: {
     handleAvatarSuccess(resp) {
       if (!resp.code && resp.data) {

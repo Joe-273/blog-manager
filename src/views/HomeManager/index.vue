@@ -9,7 +9,6 @@
       style="width: 100%"
     >
       <el-table-column
-        prop="date"
         label="序号"
         width="50"
         align="center"
@@ -19,7 +18,6 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="title"
         label="标题"
         width="150"
         align="center"
@@ -29,7 +27,6 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="description"
         label="描述"
         width="350"
         align="center"
@@ -39,33 +36,30 @@
         </template>
       </el-table-column>
       <el-table-column
-        prop="midImg"
         label="占位图预览"
         align="center"
       >
         <template slot-scope="scope">
           <el-image
             style="width: 100px; height: 100px"
-            :src="wholeUrl(scope.row.midImg)"
+            :src="scope.row.midImg"
             fit="cover"
           />
         </template>
       </el-table-column>
       <el-table-column
-        prop="bigImg"
         label="原图预览"
         align="center"
       >
         <template slot-scope="scope">
           <el-image
             style="width: 100px; height: 100px"
-            :src="wholeUrl(scope.row.bigImg)"
+            :src="scope.row.bigImg"
             fit="cover"
           />
         </template>
       </el-table-column>
       <el-table-column
-        prop="desc"
         label="操作"
         width="150"
         align="center"
@@ -116,11 +110,11 @@
         <el-row class="upload">
           <el-col :span="12">
             <!-- 占位图 -->
-            <Upload v-model="form.midImg" :value="wholeUrl(form.midImg)" upload-title="占位图" />
+            <Upload v-model="form.midImg" :value="form.midImg" upload-title="占位图" />
           </el-col>
           <el-col :span="12">
             <!-- 原图 -->
-            <Upload v-model="form.bigImg" :value="wholeUrl(form.bigImg)" upload-title="原图" />
+            <Upload v-model="form.bigImg" :value="form.bigImg" upload-title="原图" />
           </el-col>
         </el-row>
 
@@ -137,7 +131,6 @@
 
 <script>
 import { getBanner, setBanner } from '@/api/banner'
-import { SERVER_URL } from '@/config'
 import Upload from '@/components/Upload'
 
 export default {
@@ -149,7 +142,6 @@ export default {
       data: [],
       // Dialog数据
       dialogFormVisible: false,
-      dialogVisible: false,
       // 表单项存储数据
       form: {
         midImg: '',
@@ -161,21 +153,10 @@ export default {
       mode: 'edit'
     }
   },
-  computed: {
-    wholeUrl() {
-      return function(url) {
-        if (this._isAbsolutePath(url)) {
-          return url
-        }
-        return SERVER_URL + url
-      }
-    }
-  },
   created() {
     this.fetchData()
   },
   methods: {
-
     /* 点击添加Banner按钮 */
     handleAddBanner() {
       // 初始化表单项
@@ -201,7 +182,6 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        console.log(newData)
         setBanner(newData).then(resp => {
           this.data = resp.data
           this.$message({
@@ -217,13 +197,6 @@ export default {
           center: true
         })
       })
-
-      //
-      this.form = item
-      this.mode = 'del'
-
-      // 打开对话框
-      this.dialogVisible = true
     },
 
     /* 确认 编辑/添加 事件*/
@@ -276,11 +249,8 @@ export default {
       getBanner().then(resp => {
         this.data = resp.data
       })
-    },
-
-    _isAbsolutePath(path) {
-      return /^(https?:)?\/\//i.test(path)
     }
+
   }
 }
 </script>
