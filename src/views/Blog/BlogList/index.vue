@@ -59,6 +59,7 @@
           {{ scope.row.scanNumber }}
         </template>
       </el-table-column>
+      <!--  -->
       <el-table-column
         label="评论量"
         align="center"
@@ -67,6 +68,7 @@
           {{ scope.row.commentNumber }}
         </template>
       </el-table-column>
+      <!--  -->
       <el-table-column
         label="所属分类"
         align="center"
@@ -75,6 +77,7 @@
           {{ scope.row.category.name || '未分类' }}
         </template>
       </el-table-column>
+      <!--  -->
       <el-table-column
         label="创建日期"
         align="center"
@@ -84,7 +87,7 @@
           {{ formatTime(scope.row.createDate,true) }}
         </template>
       </el-table-column>
-
+      <!--  -->
       <el-table-column
         label="操作"
         width="150"
@@ -103,6 +106,8 @@
     </el-table>
 
     <!-- 分页 -->
+    <!-- 分页 -->
+    <!-- 分页 -->
     <el-pagination
       style="margin: 20px 0;"
       background
@@ -110,6 +115,7 @@
       :total="count"
       :page-sizes="[5,10,15,20]"
       :page-size="eachPage"
+      :current-page.sync="pagerCurrentPage"
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
       @prev-click="handlePrevClick"
@@ -135,9 +141,8 @@ export default {
       eachPage: 10, // 每一页显示的条数
       currentPage: 1, // 当前页码,默认第一页
       totalPage: 0, // 总页数
-      count: 0 // 总数据条数
-      // pagerCurrentPage: 1 // 分页栏的当前页码
-
+      count: 0, // 总数据条数
+      pagerCurrentPage: 1 // 分页栏的当前页码
     }
   },
   async created() {
@@ -148,6 +153,7 @@ export default {
     handleSizeChange(eachPage) {
       this.eachPage = parseInt(eachPage)
       this.currentPage = 1
+      this.pagerCurrentPage = 1
       this.fetchData()
     },
     handleCurrentChange(pageNumber) {

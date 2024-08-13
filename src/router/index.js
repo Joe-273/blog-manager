@@ -183,6 +183,20 @@ export const constantRoutes = [
       }
     ]
   },
+  // 个人中心
+  {
+    path: '/PersonalCenter',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: 'PersonalCenter',
+        hidden: true,
+        component: () => import('@/views/PersonalCenter/index'),
+        meta: { title: '个人中心', auth: true }
+      }
+    ]
+  },
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

@@ -7,11 +7,11 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
+          <img :src="avatar || 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif'" class="user-avatar">
           <i class="el-icon-caret-bottom" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
-          <router-link to="/">
+          <router-link to="/PersonalCenter/index">
             <el-dropdown-item>
               个人中心
             </el-dropdown-item>
@@ -116,6 +116,7 @@ export default {
           cursor: pointer;
           width: 40px;
           height: 40px;
+          object-fit: cover;
           border-radius: 10px;
         }
 

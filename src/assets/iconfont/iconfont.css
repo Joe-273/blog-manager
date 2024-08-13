@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4652392 */
+  src: url('iconfont.woff2?t=1723538333699') format('woff2'),
+       url('iconfont.woff?t=1723538333699') format('woff'),
+       url('iconfont.ttf?t=1723538333699') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 18px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-github:before {
+  content: "\e799";
+}
+

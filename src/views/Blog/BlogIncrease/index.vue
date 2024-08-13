@@ -96,7 +96,6 @@ export default {
         this.form.categoryId = resp.data.category.id || ''
         this.form.thumb = resp.data.thumb
         // 将html转为markdown再回填
-        console.log(resp.data.htmlContent)
         const turndownService = new TurndownService()
         this.form.markdownContent = turndownService.turndown(resp.data.htmlContent)
         this.content = this.form.markdownContent
@@ -128,6 +127,7 @@ export default {
       this.form.markdownContent = text
     },
 
+    /** 设置锚链接ID */
     setAnchor(html) {
       const tempDiv = document.createElement('div')
       tempDiv.innerHTML = html

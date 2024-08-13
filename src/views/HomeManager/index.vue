@@ -108,16 +108,16 @@
         </el-form-item>
 
         <!-- 图片 -->
-        <el-row class="upload">
-          <el-col :span="12">
+        <el-row class="upload" style="text-align: left;font-weight: 700;">
+          <el-col :span="9">
             <!-- 占位图 -->
-            <p>占位图</p>
-            <Upload v-model="form.midImg" :value="form.midImg" upload-title="占位图" />
+            <p style="">占位图</p>
+            <Upload v-model="form.midImg" style="align-items: flex-start;" :value="form.midImg" upload-title="占位图" />
           </el-col>
           <el-col :span="12">
             <!-- 原图 -->
             <p>原图</p>
-            <Upload v-model="form.bigImg" :value="form.bigImg" upload-title="原图" />
+            <Upload v-model="form.bigImg" style="align-items: flex-start;" :value="form.bigImg" upload-title="原图" />
           </el-col>
         </el-row>
 
