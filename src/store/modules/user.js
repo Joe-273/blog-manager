@@ -1,4 +1,5 @@
 import { login, logout, getInfo } from '@/api/user'
+import { getGlobalSetting } from '@/api/setting'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
 
@@ -28,10 +29,22 @@ const mutations = {
   // },
   SET_USER: (state, user) => {
     state.user = user
+  },
+  SET_AVATAR: (state, avatar) => {
+    state.avatar = avatar
   }
 }
 
 const actions = {
+  // 获取头像
+  getAvatar({ commit }) {
+    return new Promise((resolve, reject) => {
+      getGlobalSetting().then(resp => {
+        commit('SET_AVATAR', resp.data.avatar || 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+      })
+    })
+  },
+
   // user login
   login({ commit }, userInfo) {
     return new Promise((resolve, reject) => {

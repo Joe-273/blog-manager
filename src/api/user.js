@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-
+// 登录
 export function login(data) {
   return request({
     url: '/api/admin/login',
@@ -7,11 +7,20 @@ export function login(data) {
     data
   })
 }
-
+// 恢复登录
 export function getInfo() {
   return request({
     url: '/api/admin/whoami',
     method: 'get'
+  })
+}
+
+// 修改用户
+export function setUser(data) {
+  return request({
+    url: '/api/admin',
+    method: 'PUT',
+    data
   })
 }
 

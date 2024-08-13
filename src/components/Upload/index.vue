@@ -6,9 +6,12 @@
       :show-file-list="false"
       :on-success="handleAvatarSuccess"
       :headers="headers"
+      :disabled="disabled"
+      :style="{ width: `${size}px`, height: `${size}px` }"
+      :class="{'disabled': disabled}"
     >
-      <img v-if="value" :src="value" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon" />
+      <img v-if="value" :src="value" :class="{'disabled': disabled}" class="avatar" :style="{ width: `${size}px`, height: `${size}px` }">
+      <i v-else class="el-icon-plus avatar-uploader-icon" :style="{ width: `${size}px`, height: `${size}px`,lineHeight:`${size}px` }" />
     </el-upload>
   </div>
 </template>
@@ -20,6 +23,16 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    size: {
+      type: Number,
+      required: false,
+      default: 178
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   computed: {
@@ -70,6 +83,10 @@ export default {
     height: 178px;
     display: block;
     object-fit: cover;
+    border: 1px solid #d9d9d9;
     border-radius: 6px;
+  }
+  .disabled{
+    cursor: not-allowed;
   }
 </style>
