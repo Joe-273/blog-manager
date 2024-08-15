@@ -8,10 +8,9 @@
       :headers="headers"
       :disabled="disabled"
       :style="{ width: `${size}px`, height: `${size}px` }"
-      :class="{'disabled': disabled}"
     >
       <img v-if="value" :src="value" :class="{'disabled': disabled}" class="avatar" :style="{ width: `${size}px`, height: `${size}px` }">
-      <i v-else class="el-icon-plus avatar-uploader-icon" :style="{ width: `${size}px`, height: `${size}px`,lineHeight:`${size}px` }" />
+      <i v-else class="el-icon-plus avatar-uploader-icon" :class="{'disabled': disabled}" :style="{ width: `${size}px`, height: `${size}px`,lineHeight:`${size}px` }" />
     </el-upload>
   </div>
 </template>
@@ -46,6 +45,16 @@ export default {
         this.$emit('input', resp.data)
         this.$message.success({
           message: '图片成功上传至服务器!',
+          center: true
+        })
+      } else if (resp.code === 413) {
+        this.$message.error({
+          message: '图片大小超出限制！',
+          center: true
+        })
+      } else {
+        this.$message.error({
+          message: '出错了！',
           center: true
         })
       }

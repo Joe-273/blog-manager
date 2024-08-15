@@ -9,7 +9,7 @@
     <!-- 文章内容 -->
     <div class="block">
       <p>文章内容<label style="color: lightcoral;">*</label></p>
-      <v-md-editor v-model="content" height="680px" class="markdown" @change="debounceChangeHandle" />
+      <v-md-editor v-model="content" height="600px" class="markdown" @change="debounceChangeHandle" />
     </div>
 
     <!-- 文章描述 -->
@@ -23,30 +23,36 @@
       />
     </div>
 
-    <!-- 文章预览图 -->
     <div class="lastRow">
+
+      <!-- 文章预览图 -->
       <div class="block">
         <p>预览图片</p>
         <Upload v-model="form.thumb" style="align-items: start;" />
       </div>
 
-      <!-- 文章分类 -->
-      <div class="block">
-        <p>文章分类<label style="color: lightcoral;">*</label></p>
-        <div class="content">
-          <el-select v-model="form.categoryId" placeholder="请选择一个分类">
-            <el-option
-              v-for="item in categories"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id"
-            />
-          </el-select>
+      <div class="block flex">
+        <!-- 文章预览图 -->
+        <p>预览图片</p>
+        <el-input v-model="form.thumb" placeholder="请输入Url（或上传图片）" />
 
-          <!-- 发布按钮 -->
-          <el-button style="width: 100px;" type="primary" plain @click="handlePrimaryBlog">{{ isEditMode ? "重新" : "" }}发布</el-button>
-        </div>
+        <!-- 文章分类 -->
+        <p>文章分类<label style="color: lightcoral;">*</label></p>
+        <el-select v-model="form.categoryId" placeholder="请选择一个分类">
+          <el-option
+            v-for="item in categories"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          />
+        </el-select>
       </div>
+
+    </div>
+
+    <!-- 发布按钮 -->
+    <div class="block">
+      <el-button style="width: 100px;" type="primary" plain @click="handlePrimaryBlog">{{ isEditMode ? "重新" : "" }}发布</el-button>
     </div>
 
   </div>
@@ -207,6 +213,10 @@ export default {
 }
 .lastRow{
   display: flex;
+}
+.lastRow .flex{
+  margin-right: 0;
+  flex: 1;
 }
 .lastRow>*{
   margin-right: 50px;

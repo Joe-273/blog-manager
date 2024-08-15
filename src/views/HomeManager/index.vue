@@ -15,7 +15,25 @@
         align="center"
       >
         <template slot-scope="scope">
-          {{ scope.$index + 1 }}
+          <div class="column">
+            <el-button
+              v-show="scope.$index !== 0"
+              size="mini"
+              icon="el-icon-arrow-up"
+              circle
+              type="text"
+              @click="handleItemUp(scope.$index)"
+            />
+            {{ scope.$index + 1 }}
+            <el-button
+              v-show="scope.$index < data.length-1"
+              size="mini"
+              icon="el-icon-arrow-down"
+              circle
+              type="text"
+              @click="handleItemDown(scope.$index)"
+            />
+          </div>
         </template>
       </el-table-column>
       <el-table-column
@@ -94,30 +112,39 @@
     <!-- Dialog -->
     <!-- Dialog -->
     <!-- Dialog -->
-    <el-dialog title="编辑内容" :visible.sync="dialogFormVisible">
+    <el-dialog title="编辑内容" :visible.sync="dialogFormVisible" top="8vh">
       <el-form :model="form">
 
         <!-- 标题 -->
         <el-form-item label="标题">
-          <el-input v-model="form.title" />
+          <el-input v-model="form.title" placeholder="请输入标题" />
         </el-form-item>
 
         <!-- 描述 -->
         <el-form-item label="描述">
-          <el-input v-model="form.description" type="textarea" :autosize="{ minRows: 2, maxRows: 5}" />
+          <el-input v-model="form.description" placeholder="请输入标语描述" type="textarea" :autosize="{ minRows: 2, maxRows: 5}" />
+        </el-form-item>
+
+        <el-form-item label="占位图">
+          <el-input v-model="form.midImg" placeholder="请输入占位图Url（或上传图片）" />
+        </el-form-item>
+
+        <el-form-item label="原图">
+          <el-input v-model="form.bigImg" placeholder="请输入原图Url（或上传图片）" />
         </el-form-item>
 
         <!-- 图片 -->
-        <el-row class="upload" style="text-align: left;font-weight: 700;">
-          <el-col :span="9">
+        <el-row class="upload row-bg" type="flex" justify="space-around">
+          <el-col :span="8">
             <!-- 占位图 -->
             <p style="">占位图</p>
-            <Upload v-model="form.midImg" style="align-items: flex-start;" :value="form.midImg" upload-title="占位图" />
+            <Upload v-model="form.midImg" :value="form.midImg" upload-title="占位图" />
           </el-col>
-          <el-col :span="12">
+
+          <el-col :span="8">
             <!-- 原图 -->
             <p>原图</p>
-            <Upload v-model="form.bigImg" style="align-items: flex-start;" :value="form.bigImg" upload-title="原图" />
+            <Upload v-model="form.bigImg" :value="form.bigImg" upload-title="原图" />
           </el-col>
         </el-row>
 
@@ -161,6 +188,26 @@ export default {
     this.fetchData()
   },
   methods: {
+    /** 排序按钮 */
+    handleItemUp(currentIndex) {
+      if (currentIndex === 0) {
+        return
+      }
+      [this.data[currentIndex], this.data[currentIndex - 1]] = [this.data[currentIndex - 1], this.data[currentIndex]]
+      setBanner(this.data).then(resp => {
+        this.data = resp.data
+      })
+    },
+    handleItemDown(currentIndex) {
+      if (currentIndex >= this.data.length - 1) {
+        return
+      }
+      [this.data[currentIndex], this.data[currentIndex + 1]] = [this.data[currentIndex + 1], this.data[currentIndex]]
+      setBanner(this.data).then(resp => {
+        this.data = resp.data
+      })
+    },
+
     /* 点击添加Banner按钮 */
     handleAddBanner() {
       // 初始化表单项
@@ -271,5 +318,16 @@ export default {
 }
 .upload{
   text-align: center;
+}
+.column{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.column  *{
+  margin: 0;
+  border: none;
+  background: transparent;
 }
 </style>

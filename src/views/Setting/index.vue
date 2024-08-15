@@ -8,6 +8,14 @@
           <p>网站标题<label style="color: lightcoral;">*</label></p>
           <el-input v-model="form.siteTitle" placeholder="请输入内容" :disabled="!editMode" />
         </div>
+        <div class="block">
+          <p>个人头像<label style="color: lightcoral;">*</label></p>
+          <el-input v-model="form.avatar" placeholder="请输入个人头像Url（或上传图片）" :disabled="!editMode" />
+        </div>
+        <div class="block">
+          <p>网站图标<label style="color: lightcoral;">*</label></p>
+          <el-input v-model="form.favicon" placeholder="请输入网站图标Url（或上传图片）" :disabled="!editMode" />
+        </div>
       </el-col>
 
       <el-col :span="5">
