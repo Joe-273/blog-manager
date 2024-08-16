@@ -94,17 +94,23 @@ export const constantRoutes = [
         meta: { title: '博客分类', icon: 'el-icon-menu', auth: true }
       },
       {
-        path: 'BlogIncrease',
-        component: () => import('@/views/Blog/BlogIncrease/index'), // Parent router-view
-        name: 'BlogIncrease',
+        path: 'BlogRelease',
+        component: () => import('@/views/Blog/BlogRelease/index'), // Parent router-view
+        name: 'BlogRelease',
         meta: { title: '添加博客', icon: 'el-icon-circle-plus-outline', auth: true }
       },
       {
         path: 'EditBlog/:blogId',
-        component: () => import('@/views/Blog/BlogIncrease/index'), // Parent router-view
+        component: () => import('@/views/Blog/BlogRelease/index'), // Parent router-view
         name: 'EditBlog',
         hidden: true,
         meta: { title: '编辑博客', auth: true, editBlogMode: true }
+      },
+      {
+        path: 'BlogUpload',
+        component: () => import('@/views/Blog/BlogUpload/index'), // Parent router-view
+        name: 'BlogUpload',
+        meta: { title: '上传博客', icon: 'el-icon-upload', auth: true }
       }
     ]
   },

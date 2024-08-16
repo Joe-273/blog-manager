@@ -56,7 +56,17 @@ module.exports = {
     resolve: {
       alias: {
         '@': resolve('src')
-      }
+      },
+      extensions: ['.js', '.vue', '.json', '.mjs'] // 确保包含 .mjs
+    },
+    module: {
+      rules: [
+        {
+          test: /\.mjs$/, // 对 .mjs 文件进行处理
+          include: /node_modules/, // 包含 node_modules 中的 .mjs 文件
+          type: 'javascript/auto' // 自动处理为 CommonJS 或 ES 模块
+        }
+      ]
     }
   },
   chainWebpack(config) {

@@ -32,22 +32,28 @@
       </div>
 
       <!-- 项目排序 -->
-      <div class="block">
-        <p>等级排序<label style="color: lightcoral;">*</label></p>
-        <div class="content">
-          <el-select v-model="form.order" placeholder="请选择排序等级">
-            <el-option label="Lv-1" :value="1" />
-            <el-option label="Lv-2" :value="2" />
-            <el-option label="Lv-3" :value="3" />
-            <el-option label="Lv-4" :value="4" />
-            <el-option label="Lv-5" :value="5" />
-          </el-select>
+      <div class="block flex">
+        <!-- 文章预览图 -->
+        <p>预览图片<label style="color: lightcoral;">*</label></p>
+        <el-input v-model="form.thumb" placeholder="请输入Url（或上传图片）" />
 
-          <!-- 发布按钮 -->
-          <el-button style="width: 100px;" type="primary" plain @click="handlePrimaryProject">发布</el-button>
-        </div>
+        <p>等级排序<label style="color: lightcoral;">*</label></p>
+        <el-select v-model="form.order" placeholder="请选择排序等级">
+          <el-option label="Lv-1" :value="1" />
+          <el-option label="Lv-2" :value="2" />
+          <el-option label="Lv-3" :value="3" />
+          <el-option label="Lv-4" :value="4" />
+          <el-option label="Lv-5" :value="5" />
+        </el-select>
+
       </div>
     </div>
+
+    <!-- 发布按钮 -->
+    <div class="block">
+      <el-button style="width: 100px;" type="primary" plain @click="handlePrimaryProject">发布</el-button>
+    </div>
+
   </div>
 </template>
 
@@ -104,11 +110,15 @@ export default {
   flex-direction: column;
   justify-content: space-between;
 }
-
+.block{
+  margin-top: 30px;
+}
 .lastRow {
   display: flex;
 }
-
+.lastRow .flex{
+  flex: 1;
+}
 .lastRow>* {
   margin-right: 50px;
 }

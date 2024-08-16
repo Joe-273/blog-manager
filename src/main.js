@@ -19,11 +19,11 @@ import '@/permission' // permission control
 // markdown编辑器
 import VueMarkdownEditor from '@kangc/v-md-editor'
 import '@kangc/v-md-editor/lib/style/base-editor.css'
-import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js'
-import '@kangc/v-md-editor/lib/theme/style/vuepress.css'
+import githubTheme from '@kangc/v-md-editor/lib/theme/github.js'
+import '@kangc/v-md-editor/lib/theme/style/github.css'
 import Prism from 'prismjs' // Prism
 import 'prismjs/components/prism-json' // highlight code
-VueMarkdownEditor.use(vuepressTheme, {
+VueMarkdownEditor.use(githubTheme, {
   Prism
 })
 Vue.use(VueMarkdownEditor)

@@ -155,7 +155,7 @@ export default {
 
     /** 删除 */
     handleDeleteButtonClick(item) {
-      this.$confirm('此操作将删除该分类,且该分类下所有文章的分类状态将被设置为"未分类", 是否继续?', '提示', {
+      this.$confirm('此操作将删除该分类,且该分类下所有文章的分类状态将被设置为"全部", 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'

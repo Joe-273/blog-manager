@@ -68,13 +68,13 @@
           {{ scope.row.commentNumber }}
         </template>
       </el-table-column>
-      <!--  -->
+      <!-- 所属分类 -->
       <el-table-column
         label="所属分类"
         align="center"
       >
         <template slot-scope="scope">
-          {{ scope.row.category.name || '未分类' }}
+          {{ scope.row.category ? scope.row.category.name : '无分类' }}
         </template>
       </el-table-column>
       <!--  -->

@@ -16,7 +16,7 @@
         align="center"
       >
         <template slot-scope="scope">
-        {{ scope.$index + 1 + (currentPage-1)*eachPage }}
+          {{ scope.$index + 1 + (currentPage-1)*eachPage }}
         </template>
       </el-table-column>
 
@@ -113,7 +113,7 @@
 </template>
 
 <script>
-import { getComment,deleteComment } from '@/api/comment'
+import { getComment, deleteComment } from '@/api/comment'
 import formatTime from '@/utils/formatDate.js'
 export default {
   data() {
@@ -153,7 +153,7 @@ export default {
     },
 
     /** 删除评论 */
-    handleDeleteButtonClick(commentInfo){
+    handleDeleteButtonClick(commentInfo) {
       this.$confirm('此操作将永久删除该评论, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -177,13 +177,13 @@ export default {
 
     formatTime,
     async fetchData() {
-      this.loading=true
+      this.loading = true
       const resp = await getComment(this.currentPage, this.eachPage)
       this.data = resp.data.rows
-      this.loading=false
+      this.loading = false
 
-       // 添加完善地址链接的地址到srcList
-       this.data.forEach(i => {
+      // 添加完善地址链接的地址到srcList
+      this.data.forEach(i => {
         this.srcList.push(i.avatar)
       })
 
