@@ -23,8 +23,8 @@
 
       <el-table-column
         label="排序等级"
-        width="160"
         align="center"
+        width="120"
       >
         <template slot-scope="scope">
           Lv-{{ scope.row.order }}
@@ -33,7 +33,7 @@
 
       <el-table-column
         label="项目名称"
-        width="160"
+        width="180"
         align="center"
       >
         <template slot-scope="scope">
@@ -43,7 +43,6 @@
       <!--  -->
       <el-table-column
         label="项目描述"
-        width="280"
         align="center"
       >
         <template slot-scope="scope">
@@ -67,7 +66,7 @@
 
       <el-table-column
         label="操作"
-        width="200"
+        width="220"
         align="center"
       >
         <template slot-scope="scope">
@@ -163,7 +162,6 @@ export default {
     async handleEditButtonClick(project) {
       this.dialogFormVisible = true
       this.form = project
-      console.log(this.form)
       this.form.description = this.form.description.toString()
     },
     /** 确认编辑 */
@@ -203,8 +201,14 @@ export default {
         })
       })
     },
-    handleGithubButtonClick(project) {},
-    handleGoToProject(project) {},
+    handleGithubButtonClick(project) {
+      window.open(project.github, '_blank')
+    },
+    handleGoToProject(project) {
+      console.log(project)
+      // window.open(project.url, '_blank')
+    },
+
     async fetchData() {
       this.loading = true
       const { data } = await getProjects()

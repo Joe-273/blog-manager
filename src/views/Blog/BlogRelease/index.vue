@@ -62,11 +62,9 @@
 import Upload from '@/components/Upload'
 import { getBlogCategories } from '@/api/blogType'
 import { addBlog, getOneBlog, editBlog } from '@/api/blog'
-// html转为markdown
-import TurndownService from 'turndown'
-// markdown转为html
-import MarkdownIt from 'markdown-it'
-import markdownItAnchor from 'markdown-it-anchor'
+
+import md from '@/utils/markdownToHtml'
+import turndownService from '@/utils/htmlToMarkdown'
 
 export default {
   components: {
@@ -82,6 +80,7 @@ export default {
         categoryId: '',
         markdownContent: ''
       },
+
       categories: [],
       content: '',
 
@@ -105,7 +104,6 @@ export default {
         this.form.categoryId = resp.data.category.id || ''
         this.form.thumb = resp.data.thumb
         // 将html转为markdown再回填
-        const turndownService = new TurndownService()
         this.form.markdownContent = turndownService.turndown(resp.data.htmlContent)
         this.content = this.form.markdownContent
       })
@@ -132,39 +130,9 @@ export default {
     },
     /** 获取Html */
     handleGetHtml(text, html) {
-      // 创建 MarkdownIt 实例
-      const md = new MarkdownIt()
-      // 使用 markdown-it-anchor 插件
-      md.use(markdownItAnchor, {
-        level: [1, 2, 3, 4, 5, 6], // 指定哪些级别的标题需要生成锚链接
-        permalink: true, // 生成带有链接的锚点
-        permalinkBefore: true, // 锚点在标题前
-        permalinkSymbol: '#' // 锚点符号
-      })
-
-      // this.form.htmlContent = this.setAnchor(html)
       this.form.htmlContent = md.render(text)
       this.form.markdownContent = text
     },
-
-    // /** 设置锚链接ID */
-    // setAnchor(html) {
-    //   const tempDiv = document.createElement('div')
-    //   tempDiv.innerHTML = html
-
-    //   const headers = tempDiv.querySelectorAll('h1,h2,h3,h4,h5,h6')
-
-    //   headers.forEach(header => {
-    //     // 获取 data-v-md-heading 属性的值
-    //     const id = header.getAttribute('data-v-md-heading').trim()
-
-    //     // 直接将 data-v-md-heading 的值设置为 id，不论是否已有 id
-    //     header.setAttribute('id', id)
-    //   })
-
-    //   return tempDiv.innerHTML
-    // },
-
     /** 发布文章 */
     handlePrimaryBlog() {
       const data = {

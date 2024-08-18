@@ -1,13 +1,15 @@
 import request from '@/utils/request'
 
 // 分页获取文章
-export function getBlogByPager(page = 1, limit = 10) {
+export function getBlogByPager(page = 1, limit = 10, categoryId = -1, keyword = '') {
   return request({
     url: '/api/blog',
     method: 'get',
     params: {
       page,
-      limit
+      limit,
+      categoryId,
+      keyword
     }
   })
 }

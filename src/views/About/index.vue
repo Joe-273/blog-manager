@@ -29,7 +29,6 @@ export default {
   methods: {
     async fetchData() {
       const resp = await getAboutUrl()
-      console.log(resp)
       this.input = resp.data
       // 存储
       this.originUrl = { ...resp.data }

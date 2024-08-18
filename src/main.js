@@ -21,10 +21,10 @@ import VueMarkdownEditor from '@kangc/v-md-editor'
 import '@kangc/v-md-editor/lib/style/base-editor.css'
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js'
 import '@kangc/v-md-editor/lib/theme/style/github.css'
-import Prism from 'prismjs' // Prism
-import 'prismjs/components/prism-json' // highlight code
+// highlightjs
+import hljs from 'highlight.js'
 VueMarkdownEditor.use(githubTheme, {
-  Prism
+  Hljs: hljs
 })
 Vue.use(VueMarkdownEditor)
 
