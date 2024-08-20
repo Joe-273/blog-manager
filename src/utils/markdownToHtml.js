@@ -4,6 +4,7 @@ import markdownItAnchor from 'markdown-it-anchor'
 
 // markdown->html
 const md = new MarkdownIt({
+  html: true,
   highlight: (str, lang) => {
     // 直接渲染代码块，不应用语言类
     return `<pre><code>${md.utils.escapeHtml(str)}</code></pre>`
